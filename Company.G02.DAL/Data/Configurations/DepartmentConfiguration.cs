@@ -8,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Company.G02.DAL.Configurations
+namespace Company.G02.DAL.Data.Configurations
 {
-    public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
+    public class DepartmentConfiguration :  IEntityTypeConfiguration<Department>
     {
+
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.Property(D => D.Id).UseIdentityColumn(10,10);
+            builder.Property(D => D.Id).UseIdentityColumn(10, 10);
+           
         }
     }
 }

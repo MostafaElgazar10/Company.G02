@@ -1,3 +1,9 @@
+using Company.G02.BLL.Interfaces;
+using Company.G02.BLL.Repositories;
+using Company.G02.DAL.Data.DBContexts;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+
 namespace Company.G02.PL
 {
     public class Program
@@ -8,6 +14,14 @@ namespace Company.G02.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<DepartmentRepository>(); // Allow DI From DepartmentRepository
+            builder.Services.AddDbContext<CompanyDBContext>(Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+            }); // Allow DI From CompanyDBContext
+            builder.Services.AddScoped<IEmployeeRepository,EmployeeRepositore>();
+          //  builder.Services.AddScoped<typeof(IGenaricRepository<>,typeof(GenaricRepository<>)>
 
             var app = builder.Build();
 
@@ -24,7 +38,7 @@ namespace Company.G02.PL
 
             app.UseRouting();
 
-         //   app.UseAuthorization();
+            //   app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
